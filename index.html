@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRIGHT | Beyond Roleplay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --bright-green: #00ffa3;
+            --dark-core: #020202;
+            --accent-glow: rgba(0, 255, 163, 0.2);
+            --border-color: rgba(0, 255, 163, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--bright-green); box-shadow: 0 0 10px var(--bright-green); }
+
+        body {
+            background-color: var(--dark-core);
+            color: #e0e0e0;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Background Dinamic */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(2, 2, 2, 0.8), rgba(2, 2, 2, 0.8)),
+                url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            z-index: -2;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 255, 163, 0.02) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Header Futuristic */
+        nav {
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5%;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box {
+            width: 45px;
+            height: 45px;
+            border: 2px solid var(--bright-green);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .logo-box span {
+            transform: rotate(-45deg);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: var(--bright-green);
+            font-size: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-left: 40px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover { color: var(--bright-green); text-shadow: 0 0 10px var(--bright-green); }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8vw;
+            font-weight: 900;
+            letter-spacing: 15px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--bright-green), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0;
+            animation: titleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); filter: brightness(1); }
+            50% { transform: translateY(-10px); filter: brightness(1.3); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: var(--bright-green);
+            margin-top: -10px;
+            opacity: 0.8;
+        }
+
+        /* Staff Section */
+        .section-label {
+            writing-mode: vertical-rl;
+            position: absolute;
+            left: 2%;
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--border-color);
+        }
+
+        .staff-section {
+            padding: 100px 10%;
+            position: relative;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .staff-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 60px 20px;
+            text-align: center;
+            clip-path: polygon(15% 0, 100% 0, 100% 85%, 85% 100%, 0 100%, 0 15%);
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .staff-card:hover {
+            background: var(--accent-glow);
+            border-color: var(--bright-green);
+            transform: translateY(-5px);
+        }
+
+        .staff-card i {
+            font-size: 3rem;
+            color: var(--bright-green);
+            margin-bottom: 20px;
+        }
+
+        .staff-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .staff-card .founder-badge {
+            font-size: 0.6rem;
+            background: var(--bright-green);
+            color: #000;
+            padding: 2px 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        /* Rules Section - MODIFICATĂ */
+        .rules-wrapper {
+            padding: 100px 10%;
+            text-align: center;
+        }
+
+        .rules-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .rule-item {
+            flex: 1;
+            padding: 30px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(255,255,255,0.01);
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .rule-item:hover {
+            border-color: var(--bright-green);
+            background: linear-gradient(to right, rgba(0,255,163,0.05), transparent);
+        }
+
+        .rule-number {
+            color: var(--bright-green);
+            font-family: 'Orbitron';
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Shop & Buttons */
+        .cta-box {
+            margin: 50px 10% 100px 10%;
+            padding: 80px;
+            border: 1px solid var(--bright-green);
+            text-align: center;
+            position: relative;
+            background: radial-gradient(circle at top right, var(--accent-glow), transparent);
+        }
+
+        .cta-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-premium {
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--bright-green);
+            border: 2px solid var(--bright-green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.4s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 0 20px var(--accent-glow);
+            text-transform: uppercase;
+        }
+
+        .btn-premium:hover {
+            background: var(--bright-green);
+            color: #000;
+            box-shadow: 0 0 50px var(--bright-green);
+            transform: scale(1.05);
+        }
+
+        .btn-rules {
+            margin-top: 20px;
+            border-color: #fff;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .btn-rules:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 900px) {
+            .staff-grid, .rules-container { grid-template-columns: 1fr; flex-direction: column; }
+            .hero-title { font-size: 5rem; }
+            .rules-wrapper { padding: 50px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="scanline"></div>
+
+    <nav>
+        <div class="logo-container">
+            <div class="logo-box"><span>B</span></div>
+            <div style="font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px;">BRIGHT</div>
+        </div>
+        <div class="nav-links">
+            <a href="#staff">Echipă</a>
+            <a href="#rules">Protocol</a>
+            <a href="#shop">Market</a>
+            <a href="https://discord.gg/ykZkJ9KaNn" target="_blank">Discord</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="hero-title">BRIGHT</h1>
+        <div class="hero-subtitle">The Next Generation of Roleplay</div>
+    </section>
+
+    <section class="staff-section" id="staff">
+        <span class="section-label">ADMINISTRATIVE CORE</span>
+        <h2 style="text-align: center; font-family: 'Orbitron'; letter-spacing: 10px; color: var(--bright-green); margin-bottom: 30px;">FONDATORI</h2>
+        <div class="staff-grid">
+            <div class="staff-card">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>777 MATEO</h3>
+                <span class="founder-badge">FOUNDER</span>
+                <p style="margin-top: 15px; color: #888; font-size: 0.9rem;">Lead Developer & Systems Architect & Site Developer</p>
+            </div>
+            <div class="staff-card">
+                <i class="fa-solid fa-user-shield"></i>
+                <h3>Acerrz</h3>
+                <span class="founder-badge">FOUNDER</span>
+                <p style="margin-top: 15px; color: #888; font-size: 0.9rem;">Community Operations & Security</p>
+            </div>
+            <div class="staff-card">
+                <i class="fa-solid fa-terminal"></i>
+                <h3>$𝙚𝙨𝙕𝙞𝙭𝙩𝙮</h3>
+                <span class="founder-badge">FOUNDER</span>
+                <p style="margin-top: 15px; color: #888; font-size: 0.9rem;">High-Level Tech Management</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="rules-wrapper" id="rules">
+        <h2 style="font-family: 'Orbitron'; letter-spacing: 10px; color: var(--bright-green); margin-bottom: 50px;">REGULAMENT</h2>
+        <div class="rules-container">
+            <div class="rule-item">
+                <span class="rule-number">01</span>
+                <h4 style="letter-spacing: 2px; text-transform: uppercase;">Integritate RP</h4>
+                <p style="color: #888; margin-top: 10px;">Orice acțiune trebuie să reflecte un realism avansat. Calitatea RP-ului definește serverul nostru.</p>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">02</span>
+                <h4 style="letter-spacing: 2px; text-transform: uppercase;">Zero Toxicitate</h4>
+                <p style="color: #888; margin-top: 10px;">Sistemul nostru nu permite comportamentul toxic. Respectul OOC este fundația noastră.</p>
+            </div>
+            <div class="rule-item">
+                <span class="rule-number">03</span>
+                <h4 style="letter-spacing: 2px; text-transform: uppercase;">Anti-Exploit</h4>
+                <p style="color: #888; margin-top: 10px;">Protecție avansată împotriva oricărui avantaj ilegal. Jucăm corect, evoluăm împreună.</p>
+            </div>
+        </div>
+        
+        <a href="https://docs.google.com/document/d/1QtjB1NZa1dRHBEUAsS4x9CFNSsUQeULN_CV4ufwE_Uo/edit?usp=sharing" target="_blank" class="btn-premium btn-rules">
+            <i class="fa-solid fa-file-lines" style="margin-right: 10px;"></i> Vezi Regulament Complet
+        </a>
+    </section>
+
+    <section class="cta-box" id="shop">
+        <h2>MARKET</h2>
+        <p style="letter-spacing: 5px; color: #888;">ACCES EXCLUSIV LA FACILITATI PREMIUM</p>
+        <p style="margin-top: 20px; font-size: 1.1rem;">Pentru a accesa magazinul nostru și pachetele de susținere trebuie să intrați pe Discord-ul nostru. SOON SHOP ȘI PE SITE.</p>
+        <br>
+        <a href="https://discord.gg/ykZkJ9KaNn" target="_blank" class="btn-premium">INTRĂ PE DISCORD</a>
+    </section>
+
+    <footer style="text-align: center; padding: 50px; border-top: 1px solid var(--border-color); color: #444; font-size: 0.8rem; letter-spacing: 5px;">
+        ESTABLISHED 2024 // BRIGHT ROLEPLAY // ALL RIGHTS RESERVED
+    </footer>
+
+</body>
+</html>
